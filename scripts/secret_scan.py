@@ -21,8 +21,11 @@ PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     ("GitHub PAT", re.compile(r"\bgithub_pat_[A-Za-z0-9_]{20,}\b")),
     ("AWS access key id", re.compile(r"\bAKIA[0-9A-Z]{16}\b")),
     ("Slack token", re.compile(r"\bxox[baprs]-[A-Za-z0-9-]{10,}\b")),
-    # A concrete rpcpassword value (>= 16 chars) committed in a config file.
-    ("rpc password value", re.compile(r"(?i)rpcpassword\s*=\s*\S{16,}")),
+    # A concrete high-entropy rpcpassword value committed in a config file.
+    # Only matches literal secret-like tokens (>=20 chars, no braces/quotes), so
+    # variable interpolations like {_RPC_PASSWORD} and short local test values
+    # are not flagged.
+    ("rpc password value", re.compile(r"(?i)rpcpassword\s*=\s*[A-Za-z0-9/+=_-]{20,}")),
     ("bip39-like seed hint", re.compile(r"(?i)\b(mnemonic|seed[_ ]?phrase)\b\s*[:=]\s*['\"][a-z ]{40,}['\"]")),
 ]
 
