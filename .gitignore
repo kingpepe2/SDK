@@ -1,0 +1,47 @@
+# Node / TypeScript
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+.npmrc
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+htmlcov/
+.coverage
+.coverage.*
+
+# Env / secrets — never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+rpcauth.txt
+wallet.dat
+*.seed
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local regtest scratch
+.regtest-datadir/
+tmp/
