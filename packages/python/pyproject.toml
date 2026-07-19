@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kingpepe-sdk"
+version = "0.1.0"
+description = "Official Python SDK for KingPepe Core (JSON-RPC, money, kingpepe: URIs, payments)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "The KingPepe developers" }]
+keywords = ["kingpepe", "kpepe", "sdk", "json-rpc", "payments", "cryptocurrency"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "License :: OSI Approved :: MIT License",
+  "Typing :: Typed",
+]
+# Runtime dependencies: none (standard library only).
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/kingpepe2/SDK"
+Repository = "https://github.com/kingpepe2/SDK"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "pytest-asyncio>=0.23",
+  "mypy>=1.10",
+  "ruff>=0.5",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kingpepe_sdk"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+packages = ["kingpepe_sdk"]
+mypy_path = "src"
+strict = false
+warn_unused_ignores = false
+ignore_missing_imports = true
