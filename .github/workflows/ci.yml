@@ -1,0 +1,86 @@
+name: KingPepe SDK CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  javascript-sdk:
+    name: JavaScript / TypeScript SDK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/javascript
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ["18", "20", "22"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: packages/javascript/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Test
+        run: npm test
+      - name: Build (package verification)
+        run: npm run build
+      - name: Pack (artifact verification)
+        run: npm pack --dry-run
+
+  python-sdk:
+    name: Python SDK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/python
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: python -m pip install -e ".[dev]" build
+      - name: Lint (ruff)
+        run: python -m ruff check .
+      - name: Type check (mypy)
+        run: python -m mypy
+      - name: Test (pytest)
+        run: python -m pytest -q
+      - name: Build (package verification)
+        run: python -m build
+
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan for committed secrets
+        run: python3 scripts/secret_scan.py
+
+  docs:
+    name: Documentation checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify required docs exist
+        run: python3 scripts/check_docs.py
