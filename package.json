@@ -1,0 +1,69 @@
+{
+  "name": "@kingpepe2/sdk",
+  "version": "1.0.0",
+  "description": "Official KingPepe Core JSON-RPC SDK (TypeScript). A typed RPC client for talking to a KingPepe (KPEPE) node/wallet. Does not store coins or keys.",
+  "keywords": [
+    "kingpepe",
+    "kpepe",
+    "bitcoin-core",
+    "json-rpc",
+    "rpc",
+    "blockchain",
+    "wallet",
+    "full-node",
+    "sdk"
+  ],
+  "homepage": "https://kingpepe.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingpepe2/SDK.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kingpepe2/SDK/issues"
+  },
+  "license": "MIT",
+  "author": "The KingPepe Core developers",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.17.0",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0",
+    "vitest": "^2.1.8"
+  }
+}

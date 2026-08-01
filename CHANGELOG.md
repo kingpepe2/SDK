@@ -1,29 +1,31 @@
 # Changelog
 
-All notable changes to the KingPepe SDK are documented here. This project follows
-[Semantic Versioning](https://semver.org/). Pre-1.0 minor versions may include
-breaking changes.
+All notable changes to `@kingpepe2/sdk` are documented here. This project
+follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html):
 
-## [Unreleased]
+- **MAJOR** — incompatible API changes.
+- **MINOR** — backwards-compatible functionality.
+- **PATCH** — backwards-compatible fixes.
 
-### Added
+## [1.0.0] - 2026-08-01
 
-- **TypeScript / JavaScript SDK** (`@kingpepe/sdk`): `KingPepeClient` JSON-RPC
-  client (HTTP/HTTPS, env config, wallet scoping, health checks, typed errors,
-  generic `call()` + typed wrappers for Core v31.1 RPC categories); money helpers
-  on integer base units; Bech32 address validation and `kingpepe:` URI tooling;
-  payment building blocks. ESM + CJS + type declarations.
-- **Python SDK** (`kingpepe-sdk`): synchronous `KingPepeClient` and asynchronous
-  `AsyncKingPepeClient` (standard-library transport), the same typed method
-  surface, money/address/URI/payment helpers, structured exceptions, `py.typed`.
-- Merchant **payments** module (pure state machine + RPC observer + webhook
-  events) and server-side **games** integration guide.
-- Documentation (getting started, API reference, payments, games, node setup,
-  regtest, migration, security, threat model), runnable examples, and a
-  KingPepe-branded CI workflow (lint, typecheck, tests, build verification,
-  secret scan, docs check).
-
-### Notes
-
-- Targets **KingPepe Core v31.1.0**.
-- Not yet published to npm or PyPI.
+- Initial public npm release (`@kingpepe2/sdk`).
+- TypeScript SDK for the KingPepe JSON-RPC interface.
+- ESM support.
+- CommonJS support (dual build).
+- TypeScript type declarations (`.d.ts` / `.d.cts`).
+- KingPepe JSON-RPC client (`KingPepeClient`), zero runtime dependencies.
+- Node, blockchain, and network methods (`getBlockchainInfo`, `getNetworkInfo`,
+  `getConnectionCount`, `getBlockCount`, `getBlockHash`, `getBlock`,
+  `getRawTransaction`, `getMempoolInfo`).
+- Wallet methods (`listWallets`, `getWalletInfo`, `getBalances`, `getNewAddress`,
+  `listTransactions`, `sendToAddress`, `walletPassphrase`, `walletLock`,
+  `backupWallet`).
+- Mining methods (`getMiningInfo`, `getNetworkHashPs`, `getBlockTemplate`,
+  `submitBlock`).
+- Raw transaction methods (`createRawTransaction`, `decodeRawTransaction`,
+  `signRawTransactionWithWallet`, `sendRawTransaction`).
+- Input validation and a structured error hierarchy.
+- Per-request timeouts and guarded wallet-write methods; RPC credentials are
+  only sent in the `Authorization` header and are never logged.
+- KingPepe Core v31.1.0 compatibility.

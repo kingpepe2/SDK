@@ -1,0 +1,14 @@
+# Whitelisting is done via "files" in package.json. This is a defensive backstop.
+src/
+test/
+node_modules/
+coverage/
+.github/
+tsconfig.json
+tsup.config.ts
+eslint.config.mjs
+*.tsbuildinfo
+.env
+.env.*
+*.log
+.gitignore
